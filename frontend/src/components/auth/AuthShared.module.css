@@ -1,0 +1,58 @@
+.authWrapper{
+  max-width: 960px;
+  width:100%;
+  display: grid;
+  grid-template-columns: minmax(0,1.25fr) minmax(0,1);
+  gap: 24px;
+}
+
+
+/*glass card base*/
+
+.infoCard,
+.formCard{
+  padding: 28px, 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.22);
+  color:#ffffff;
+}
+
+.formCard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.switchText{
+  margin-top: 18px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.link{
+  color: #86bc25;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: color 0.3s ease;
+}
+
+.link:hover{
+  color: #a7d94c;
+}
+
+/*mobile stacking*/
+
+@media (max-width:900px){
+  .authWrapper{
+    grid-template-columns: 1fr;
+  }
+
+.infoCard,
+.formCard{
+  padding: 20px 18px;
+}
+}
