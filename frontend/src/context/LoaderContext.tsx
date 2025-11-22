@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import FullPageLoader from "../components/Loader/FullPageLoader";
+import FullPageLoader from "../components/Loader/PreLoader";
 
 type LoaderContextProps = {
   showLoader: () => void;

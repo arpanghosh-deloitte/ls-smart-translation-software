@@ -15,7 +15,7 @@ import { useAuthStore } from "../../../store/authStore";
 import AuthInfoPanel from "../AuthInfoPanel";
 import sharedStyles from "../AuthShared.module.css";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
   const [showPassword, setShowPassword] = useState(false);
@@ -24,32 +24,39 @@ const LoginPage = () => {
     e.preventDefault();
 
     login({
-      id: "user-id",
-      name: "Test User",
-      email: "test@deloitte.com",
+      id: "new-user-id",
+      name: "New User",
+      email: "new.user@deloitte.com",
     });
   };
 
   return (
     <Box className={sharedStyles.authWrapper}>
-      {/* LEFT PANEL */}
-      <AuthInfoPanel variant="login" />
+      <AuthInfoPanel variant="signup" />
 
-      {/* RIGHT FORM PANEL */}
       <Box
         component="form"
         onSubmit={handleSubmit}
         className={sharedStyles.formCard}
       >
         <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-          Login
+          Create an Account
         </Typography>
 
-        <TextField fullWidth label="Username" margin="normal" />
+        <TextField fullWidth margin="normal" label="Full Name" />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Deloitte Email"
+          type="email"
+        />
+        <TextField fullWidth margin="normal" label="Username" />
+
+        <TextField fullWidth label="Password" margin="normal" type="password" />
 
         <TextField
           fullWidth
-          label="Password"
+          label="Confirm Password"
           margin="normal"
           type={showPassword ? "text" : "password"}
           InputProps={{
@@ -67,6 +74,7 @@ const LoginPage = () => {
           type="submit"
           fullWidth
           variant="contained"
+          size="large"
           sx={{
             mt: 3,
             backgroundColor: "#86BC25",
@@ -74,17 +82,17 @@ const LoginPage = () => {
             "&:hover": { backgroundColor: "#6E9F1C" },
           }}
         >
-          LOGIN
+          SIGN UP
         </Button>
 
         <Typography className={sharedStyles.switchText}>
-          New to Smart Translator?
+          Already have an account?
           <span
             className={sharedStyles.link}
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
           >
             {" "}
-            Create an Account
+            Login
           </span>
         </Typography>
       </Box>
@@ -92,4 +100,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

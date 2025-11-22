@@ -1,58 +1,144 @@
-.authWrapper{
-  max-width: 960px;
-  width:100%;
-  display: grid;
-  grid-template-columns: minmax(0,1.25fr) minmax(0,1);
-  gap: 24px;
+/* ---------------- FULL PAGE WRAPPER ---------------- */
+.authWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: calc(100vh - 64px); /* 64px ≈ header height */
+  width: 100%;
+
+  /* Animated gradient background */
+  background: linear-gradient(
+    145deg,
+    #1d1e1c 5%,
+    #232424 18%,
+    #86bc25 60%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
+
+  padding: 40px 60px;
+  box-sizing: border-box;
+
+  /* Fade-in + gradient shift */
+  opacity: 0;
+  animation: authFadeIn 0.6s ease-out forwards,
+    authGradientShift 18s ease-in-out infinite;
 }
 
+.authContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 
-/*glass card base*/
+  width: 100%;
+  max-width: 1280px;
 
-.infoCard,
-.formCard{
-  padding: 28px, 24px;
-  border-radius: 18px;
+  gap: 70px; /* slightly increased gap for better spacing */
+
+  flex-wrap: nowrap; /* critical */
+}
+
+/* Fade-in transition */
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slow, subtle gradient movement */
+@keyframes authGradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* ---------------- FORM CARD ---------------- */
+.formCard {
+  width: 38%;
+  padding: 50px 42px; /* increased spacing for better UI */
+  border-radius: 22px;
+
   background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.22);
-  color:#ffffff;
-}
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
-.formCard{
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 22px; /* 🔥 spacing between inputs */
+  color: white;
 }
 
-.switchText{
-  margin-top: 18px;
-  font-size: 0.85rem;
+/* Text inside form */
+.formCard :global(.MuiInputBase-input),
+.formCard :global(.MuiInputLabel-root) {
+  color: white;
+}
+
+/* Placeholder */
+.formCard :global(.MuiInputBase-input::placeholder) {
+  color: #ffffff !important;
+}
+
+/* TextField borders */
+.formCard :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: #ffffff !important;
+}
+
+.formCard
+  :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
+  border-color: #ffffff !important;
+}
+
+/* Button spacing */
+.formCard button {
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+/* Links */
+.switchText {
+  margin-top: 14px;
   text-align: center;
+  font-size: 14px;
+  color: white;
 }
 
-.link{
-  color: #86bc25;
+.link {
+  color: #b5ff7d;
   font-weight: 600;
   cursor: pointer;
-  margin-left: 4px;
-  transition: color 0.3s ease;
 }
 
-.link:hover{
-  color: #a7d94c;
+.link:hover {
+  text-decoration: underline;
 }
 
-/*mobile stacking*/
-
-@media (max-width:900px){
-  .authWrapper{
-    grid-template-columns: 1fr;
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 900px) {
+  .authWrapper {
+    flex-direction: column;
+    padding: 40px 20px;
   }
 
-.infoCard,
-.formCard{
-  padding: 20px 18px;
-}
+  .infoCard,
+  .formCard {
+    width: 60%;
+    margin-bottom: 10px;
+  }
 }
