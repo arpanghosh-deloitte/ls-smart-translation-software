@@ -1,24 +1,46 @@
+/* src/components/theme/Header.module.css */
+
 .header {
   width: 100%;
-  padding: 20px 40px;
+  padding: 20px 20px;
   display: flex;
   align-items: center;
+
+  /* 1. CRITICAL: Global Stacking Context */
+  position: sticky; /* Allows it to stay visible when scrolling */
+  top: 0;
+  z-index: 1000; /* Ensures it sits above ALL page content and most modals */
+
+  /* 2. Glass Effect & Vendor Prefixing */
   background: rgba(0, 0, 0, 0.45);
-  --webkit-backdrop-filter: blur(6px);
+
+  /* OPTIMIZATION: Fix Vendor Prefix for robust cross-browser support */
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  backdrop-filter: blur(6px);
 }
 
 .logo {
+  /* Use h1 as it often contains the primary site branding */
   font-size: 28px;
   font-weight: 700;
   color: white;
+
+  /* Reset h1 margins */
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .dot {
   width: 10px;
   height: 10px;
   margin-left: 10px;
-  background: #86bc25;
+  background: #86bc25; /* Deloitte Green */
   border-radius: 50%;
+
+  /* GPU Optimization Hint: Promotes the animation layer to the GPU */
+  will-change: transform, opacity;
+
   animation: pulse 1.8s infinite ease-in-out;
 }
 

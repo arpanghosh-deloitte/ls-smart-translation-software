@@ -6,23 +6,28 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthStore } from "../../../store/authStore";
 
 import AuthInfoPanel from "../AuthInfoPanel";
 import sharedStyles from "../AuthShared.module.css";
 
 const SignupPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
   const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Form data validation and submission logic goes here.
     login({
       id: "new-user-id",
       name: "New User",
@@ -32,37 +37,43 @@ const SignupPage = () => {
 
   return (
     <Box className={sharedStyles.authWrapper}>
+      {/* LEFT PANEL: Variant set to 'signup' for larger content */}
       <AuthInfoPanel variant="signup" />
 
+      {/* RIGHT FORM PANEL */}
       <Box
         component="form"
         onSubmit={handleSubmit}
         className={sharedStyles.formCard}
+        noValidate // Disable default HTML validation
       >
-        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+        <Typography variant="h5" className={sharedStyles.formTitle}>
           Create an Account
         </Typography>
 
-        <TextField fullWidth margin="normal" label="Full Name" />
+        <TextField label="Full Name" autoComplete="name" />
+        <TextField label="Deloitte Email" type="email" autoComplete="email" />
+
+        {/* Password fields are separated for clarity and proper auto-complete */}
         <TextField
-          fullWidth
-          margin="normal"
-          label="Deloitte Email"
-          type="email"
+          label="Password"
+          type="password"
+          autoComplete="new-password"
         />
-        <TextField fullWidth margin="normal" label="Username" />
-
-        <TextField fullWidth label="Password" margin="normal" type="password" />
 
         <TextField
-          fullWidth
           label="Confirm Password"
-          margin="normal"
           type={showPassword ? "text" : "password"}
+          autoComplete="new-password"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword((p) => !p)}>
+                <IconButton
+                  onClick={togglePassword}
+                  edge="end"
+                  // Icon color is styled via global CSS and theme
+                  sx={{ color: "rgba(255, 255, 255, 0.7)" }}
+                >
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
               </InputAdornment>
@@ -70,30 +81,24 @@ const SignupPage = () => {
           }}
         />
 
+       
         <Button
           type="submit"
-          fullWidth
           variant="contained"
-          size="large"
-          sx={{
-            mt: 3,
-            backgroundColor: "#86BC25",
-            fontWeight: 600,
-            "&:hover": { backgroundColor: "#6E9F1C" },
-          }}
+          size="large" 
+          fullWidth 
+          className={sharedStyles.submitButton}
         >
           SIGN UP
         </Button>
 
         <Typography className={sharedStyles.switchText}>
           Already have an account?
-          <span
-            className={sharedStyles.link}
-            onClick={() => navigate("/login")}
-          >
+        
+          <Link to="/login" className={sharedStyles.link}>
             {" "}
             Login
-          </span>
+          </Link>
         </Typography>
       </Box>
     </Box>

@@ -6,19 +6,22 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthStore } from "../../../store/authStore";
 
 import AuthInfoPanel from "../AuthInfoPanel";
 import sharedStyles from "../AuthShared.module.css";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
   const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,30 +35,33 @@ const LoginPage = () => {
 
   return (
     <Box className={sharedStyles.authWrapper}>
-      {/* LEFT PANEL */}
       <AuthInfoPanel variant="login" />
 
-      {/* RIGHT FORM PANEL */}
       <Box
         component="form"
         onSubmit={handleSubmit}
         className={sharedStyles.formCard}
+        noValidate
       >
-        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+        <Typography variant="h5" className={sharedStyles.formTitle}>
           Login
         </Typography>
 
-        <TextField fullWidth label="Username" margin="normal" />
+        <TextField label="Username" autoComplete="username" />
 
         <TextField
-          fullWidth
           label="Password"
-          margin="normal"
           type={showPassword ? "text" : "password"}
+          autoComplete="current-password"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword((p) => !p)}>
+                <IconButton
+                  onClick={togglePassword}
+                  edge="end"
+                  // Ensure visibility icon is visible on dark background
+                  sx={{ color: "rgba(255, 255, 255, 0.7)" }}
+                >
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
               </InputAdornment>
@@ -65,27 +71,19 @@ const LoginPage = () => {
 
         <Button
           type="submit"
-          fullWidth
           variant="contained"
-          sx={{
-            mt: 3,
-            backgroundColor: "#86BC25",
-            fontWeight: 600,
-            "&:hover": { backgroundColor: "#6E9F1C" },
-          }}
+          fullWidth
+          className={sharedStyles.submitButton} // Custom margin added via CSS
         >
           LOGIN
         </Button>
 
         <Typography className={sharedStyles.switchText}>
           New to Smart Translator?
-          <span
-            className={sharedStyles.link}
-            onClick={() => navigate("/signup")}
-          >
+          <Link to="/signup" className={sharedStyles.link}>
             {" "}
             Create an Account
-          </span>
+          </Link>
         </Typography>
       </Box>
     </Box>
