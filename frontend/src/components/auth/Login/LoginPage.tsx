@@ -47,7 +47,7 @@ const LoginPage = () => {
           Login
         </Typography>
 
-        <TextField label="Username" autoComplete="username" />
+        <TextField label="Username" required autoComplete="username" />
 
         <TextField
           label="Password"
