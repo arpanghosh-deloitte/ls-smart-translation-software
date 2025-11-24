@@ -8,11 +8,11 @@
 
   /* Animated gradient background */
   background: linear-gradient(
-    145deg,
-    #1d1e1c 5%,
-    #232424 18%,
-    #86bc25 60%,
-    #ffffff 100%
+    290deg,
+    #ffffff 5%,
+    #1d1e1c 18%,
+    #232424 55%,
+    #86bc25 100%
   );
   background-size: 200% 200%;
 

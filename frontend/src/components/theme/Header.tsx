@@ -14,6 +14,10 @@ const Header: React.FC = () => {
           aria-label="System status indicator"
         ></span>
       </h1>
+
+      <h1 className={styles.logo}>
+        <span className={styles.appName}>Smart Translator App</span>
+      </h1>
       {/* Additional navigation/user elements go here */}
       {/* Example: <nav className={styles.navLinks}>...</nav> */}
     </header>
