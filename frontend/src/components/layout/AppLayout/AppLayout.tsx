@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import { useAuthStore } from "../../../store/authStore";
 import styles from "./AppLayout.module.css";
+import Footer from "../../theme/Footer";
+import Header from "../../theme/Header";
 
 type Props = {
   children: ReactNode;
@@ -12,17 +14,16 @@ const AppLayout = ({ children }: Props) => {
 
   return (
     <Box className={styles.root}>
+      <Header />
       <Box component="main" className={styles.main}>
+       <Typography  className={styles.heading}>
+        Welcome to the Deloitte Smart Translation Hub
+      </Typography>
         {children}
       </Box>
 
       {isAuthenticated && (
-        <Box component="footer" className={styles.footer}>
-          <Typography variant="body2">
-            © {new Date().getFullYear()} Deloitte Smart Translator. All rights
-            reserved.
-          </Typography>
-        </Box>
+        <Footer />
       )}
     </Box>
   );

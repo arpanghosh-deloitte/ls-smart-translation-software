@@ -6,21 +6,21 @@
   display: flex;
   align-items: center;
 
-  /* 1. CRITICAL: Global Stacking Context */
-  position: sticky; /* Allows it to stay visible when scrolling */
+
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Ensures it sits above ALL page content and most modals */
+  z-index: 1000; 
 
   /* 2. Glass Effect & Vendor Prefixing */
   background: rgba(0, 0, 0, 0.45);
 
-  /* OPTIMIZATION: Fix Vendor Prefix for robust cross-browser support */
+
   -webkit-backdrop-filter: blur(6px); /* Safari support */
   backdrop-filter: blur(6px);
 }
 
 .logo {
-  /* Use h1 as it often contains the primary site branding */
+
   font-size: 28px;
   font-weight: 700;
   color: white;
@@ -53,7 +53,7 @@
   background: #86bc25; /* Deloitte Green */
   border-radius: 50%;
 
-  /* GPU Optimization Hint: Promotes the animation layer to the GPU */
+  /* Promotes the animation layer to the GPU */
   will-change: transform, opacity;
 
   animation: pulse 1.8s infinite ease-in-out;

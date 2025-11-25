@@ -27,10 +27,11 @@ const AuthInfoPanel = ({ variant = "login" }: Props) => {
       </Typography>
 
       {/* Access Note */}
+      <br />
       <Typography variant="body1" className={styles.accessNote}>
-        Access to Smart Translation is currently limited to registered Deloitte
-        users. To request access or support, please contact the translation
-        support team.
+        Currently access to Smart Translation is currently limited to registered Deloitte
+        users. If you are interested in utilizing translation services for your team or require special support, please contact the translation
+        support team to be added to our access list.
       </Typography>
 
       {/* Help Section - Optimized */}
@@ -39,12 +40,12 @@ const AuthInfoPanel = ({ variant = "login" }: Props) => {
           Mail Id:
         </Typography>
         <Link
-          href="mailto:test@deloitte.com"
+          href="mailto:translationsupport@deloitte.com"
           underline="hover"
           sx={{ color: "#86BC25", fontWeight: 500 }}
           variant="body1"
         >
-          test@deloitte.com
+          translationsupport@deloitte.com
         </Link>
       </Box>
 

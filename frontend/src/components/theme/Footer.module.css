@@ -1,0 +1,16 @@
+.footer {
+  width: 100%;
+  padding: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 1. CRITICAL: Global Stacking Context */
+   position: relative; /* Allows it to stay visible when scrolling */
+  bottom: 0;
+  /* Ensures it sits above ALL page content and most modals */
+  z-index: 1000; 
+
+  background: #000000;
+
+}
