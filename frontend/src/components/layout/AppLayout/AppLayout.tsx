@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material"; // Removed unused Typography
 import { useAuthStore } from "../../../store/authStore";
 import styles from "./AppLayout.module.css";
 import Footer from "../../theme/Footer";
@@ -15,16 +15,17 @@ const AppLayout = ({ children }: Props) => {
   return (
     <Box className={styles.root}>
       <Header />
+
       <Box component="main" className={styles.main}>
-       <Typography  className={styles.heading}>
-        Welcome to the Deloitte Smart Translation Hub
-      </Typography>
-        {children}
+        <Box sx={{ px: 5, pt: 3, pb: 0 }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, color: "#1a1a1a" }}>
+            Welcome to the Deloitte Smart Translation Hub
+          </Typography>
+        </Box>
+        <Box className={styles.contentPadding}>{children}</Box>
       </Box>
 
-      {isAuthenticated && (
-        <Footer />
-      )}
+      {isAuthenticated && <Footer />}
     </Box>
   );
 };

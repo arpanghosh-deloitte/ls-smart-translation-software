@@ -9,29 +9,41 @@ import {
 import { useState, useCallback } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
-import { useAuthStore } from "../../../store/authStore";
+import { useForm, type SubmitHandler, type FieldValues } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthInfoPanel from "../AuthInfoPanel";
 import sharedStyles from "../AuthShared.module.css";
 
 const SignupPage = () => {
-  // const navigate = useNavigate();
-  const login = useAuthStore((s) => s.login);
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: "onTouched",
+  });
+  const password = watch("password");
 
   const togglePassword = useCallback(() => {
     setShowPassword((prev) => !prev);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log("Signup Data:", data);
 
-    // Form data validation and submission logic goes here.
-    login({
-      id: "new-user-id",
-      name: "New User",
-      email: "new.user@deloitte.com",
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        alert("Account created successfully! Please login.");
+
+        navigate("/login");
+
+        resolve(true);
+      }, 1000);
     });
   };
 
@@ -43,7 +55,7 @@ const SignupPage = () => {
       {/* RIGHT FORM PANEL */}
       <Box
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className={sharedStyles.formCard}
         noValidate // Disable default HTML validation
       >
@@ -51,20 +63,50 @@ const SignupPage = () => {
           Create an Account
         </Typography>
 
-        <TextField label="Full Name" autoComplete="name" />
-        <TextField label="Deloitte Email" type="email" autoComplete="email" />
+        <TextField
+          label="Deloitte Email Id"
+          type="email"
+          required
+          autoComplete="email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: "Invalid email address format",
+            },
+          })}
+          error={!!errors.email}
+          helperText={errors.email?.message as string}
+        />
 
         {/* Password fields are separated for clarity and proper auto-complete */}
         <TextField
           label="Password"
           type="password"
           autoComplete="new-password"
+          required
+          {...register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters",
+            },
+          })}
+          error={!!errors.password}
+          helperText={errors.password?.message as string}
         />
 
         <TextField
           label="Confirm Password"
           type={showPassword ? "text" : "password"}
           autoComplete="new-password"
+          required
+          {...register("confirmPassword", {
+            required: "Please confirm your password",
+            validate: (value) => value === password || "Passwords do not match",
+          })}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message as string}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -81,20 +123,19 @@ const SignupPage = () => {
           }}
         />
 
-       
         <Button
           type="submit"
           variant="contained"
-          size="large" 
-          fullWidth 
+          size="large"
+          fullWidth
           className={sharedStyles.submitButton}
+          disabled={isSubmitting}
         >
-          SIGN UP
+          {isSubmitting ? "CREATING..." : "SIGN UP"}
         </Button>
 
         <Typography className={sharedStyles.switchText}>
           Already have an account?
-        
           <Link to="/login" className={sharedStyles.link}>
             {" "}
             Login

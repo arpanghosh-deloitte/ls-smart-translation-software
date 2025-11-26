@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import AppLayout from "./components/layout/AppLayout/AppLayout";
@@ -5,17 +6,29 @@ import AuthLayout from "./components/layout/AuthLayout/AuthLayout";
 import { useAuthStore } from "./store/authStore";
 import PreLoader from "./components/Loader/PreLoader";
 
+async function minDelay<T>(
+  promise: Promise<T>,
+  minDuration: number
+): Promise<T> {
+  const [moduleExports] = await Promise.all([
+    promise,
+    new Promise((resolve) => setTimeout(resolve, minDuration)),
+  ]);
 
-const LoginPage = lazy(() => import("./components/auth/Login/LoginPage"));
-const SignupPage = lazy(() => import("./components/auth/SignUp/SignUp"));
-const Dashboard = lazy(() => import("./components/contents/Dashboard"));
+  return moduleExports;
+}
 
-const AuthLayoutLazy = lazy(
-  () => import("./components/layout/AuthLayout/AuthLayout")
+const LoginPage = lazy(() =>
+  minDelay(import("./components/auth/Login/LoginPage"), 1000)
+);
+const SignupPage = lazy(() =>
+  minDelay(import("./components/auth/SignUp/SignUp"), 1000)
+);
+const Dashboard = lazy(() =>
+  minDelay(import("./components/pages/Dashboard"), 3000)
 );
 
-
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
@@ -23,39 +36,32 @@ const ProtectedRoute = ({ children }) => {
 function AppRoutes() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
-
-
   return (
-    //  Wrap Routes in Suspense to show a loader while chunks download
     <Suspense fallback={<PreLoader />}>
       <Routes>
-        {/* PUBLIC ROUTES (Auth) */}
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <AuthLayout>
+        <Route element={<AuthLayout />}>
+          <Route
+            path="/login"
+            element={
+              isAuthenticated ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
                 <LoginPage />
-              </AuthLayout>
-            )
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <AuthLayout>
+              )
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              isAuthenticated ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
                 <SignupPage />
-              </AuthLayout>
-            )
-          }
-        />
+              )
+            }
+          />
+        </Route>
 
-        {/* PROTECTED ROUTES */}
         <Route
           path="/dashboard"
           element={
@@ -67,7 +73,6 @@ function AppRoutes() {
           }
         />
 
-        {/* FALLBACK ROUTE: Redirects to dashboard if logged in, otherwise login */}
         <Route
           path="*"
           element={
@@ -84,7 +89,6 @@ function AppRoutes() {
 }
 
 function App() {
-
   return <AppRoutes />;
 }
 

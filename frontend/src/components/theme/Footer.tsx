@@ -1,15 +1,17 @@
-import React from "react";
-import styles from "./Footer.module.css";
-import {  Typography } from "@mui/material";
-const Footer: React.FC = () =>{
-  return(
-    <footer className={styles.footer}>
- <Typography variant="body2" sx={{ fontWeight: 600, color: "white" }}>
-            © {new Date().getFullYear()} Deloitte Smart Translator. All rights
-            reserved.
-          </Typography>
-    </footer>
-  )
-}
+import styles from './Footer.module.css';
+import React from 'react';
+
+const Footer: React.FC = () => {
+    // Get current year dynamically to prevent stale copyright dates
+    const currentYear = new Date().getFullYear(); 
+
+    return (
+        <footer className={styles.footer} role="contentinfo">
+            <span className={styles.footerText}>
+                © {currentYear} Deloitte Smart Translator. All rights reserved.
+            </span>
+        </footer>
+    );
+};
 
 export default Footer;

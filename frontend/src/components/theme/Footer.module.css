@@ -1,16 +1,19 @@
+/* src/components/theme/Footer.module.css */
+
 .footer {
+  /* CRITICAL: Ensures the footer doesn't shrink when vertical space is tight */
+  flex-shrink: 0;
   width: 100%;
-  padding: 20px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  /* 1. CRITICAL: Global Stacking Context */
-   position: relative; /* Allows it to stay visible when scrolling */
-  bottom: 0;
-  /* Ensures it sits above ALL page content and most modals */
-  z-index: 1000; 
+  /* Styling to match the dark aesthetic from your dashboard screenshot */
+  background-color: #1d1e1c;
+  padding: 18px 40px; /* Consistent padding with the Header */
+  text-align: center;
+}
 
-  background: #000000;
-
+.footerText {
+  /* Subtle, low-contrast white color for copyright text */
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 400;
 }

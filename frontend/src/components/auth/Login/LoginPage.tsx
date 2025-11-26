@@ -47,12 +47,13 @@ const LoginPage = () => {
           Login
         </Typography>
 
-        <TextField label="Username" required autoComplete="username" />
+        <TextField label="Deloitte Email Id" required autoComplete="username" />
 
         <TextField
           label="Password"
           type={showPassword ? "text" : "password"}
           autoComplete="current-password"
+          required
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

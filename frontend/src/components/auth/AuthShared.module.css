@@ -1,6 +1,6 @@
 .authWrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 
   min-height: calc(100dvh - 64px);
@@ -9,8 +9,8 @@
   /* Animated gradient background */
   background: linear-gradient(
     290deg,
-    #ffffff 5%,
-    #1d1e1c 18%,
+    #ffffff 3%,
+    #1d1e1c 15%,
     #232424 55%,
     #86bc25 100%
   );

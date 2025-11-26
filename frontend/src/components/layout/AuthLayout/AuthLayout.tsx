@@ -1,14 +1,14 @@
-import type { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 import styles from "./AuthLayout.module.css";
 import Header from "../../theme/Header";
 
-type Props = { children: ReactNode };
-
-const AuthLayout = ({ children }: Props) => {
+const AuthLayout = () => {
   return (
     <div className={styles.pageWrapper}>
       <Header />
-      <div className={styles.fadeIn}>{children}</div>
+      <main className={styles.contentContainer}>
+        <Outlet />
+      </main>
     </div>
   );
 };

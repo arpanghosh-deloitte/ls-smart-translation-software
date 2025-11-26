@@ -1,11 +1,18 @@
 import styles from "./Header.module.css";
-import React from "react"; // Best practice to import React
+import React from "react";
+import { Button, Box } from "@mui/material";
+import { useAuthStore } from "../../store/authStore";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const { isAuthenticated, logout } = useAuthStore();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
-    // 1. Semantic Tag: Keep <header>
     <header className={styles.header}>
-      {/* 2. Logo/Branding: Use a proper tag for branding/link */}
       <h1 className={styles.logo}>
         Deloitte
         <span
@@ -18,8 +25,23 @@ const Header: React.FC = () => {
       <h1 className={styles.logo}>
         <span className={styles.appName}>Smart Translator App</span>
       </h1>
-      {/* Additional navigation/user elements go here */}
-      {/* Example: <nav className={styles.navLinks}>...</nav> */}
+      {isAuthenticated && (
+        <Box sx={{ marginLeft: "auto" }}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            size="small"
+            onClick={handleLogout}
+            sx={{
+              color: "white",
+              borderColor: "rgba(255,255,255,0.5)",
+              "&:hover": { borderColor: "#86BC25", color: "#86BC25" },
+            }}
+          >
+            Logout
+          </Button>
+        </Box>
+      )}
     </header>
   );
 };

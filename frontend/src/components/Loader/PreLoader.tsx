@@ -10,7 +10,8 @@ const Preloader = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#F6F6F4",
+        background: "linear-gradient(135deg, #1d1e1c 0%, #2e302e 100%)",
+        zIndex: 9999,
       }}
     >
       <CircularProgress
@@ -22,7 +23,7 @@ const Preloader = () => {
         }}
       />
 
-      <Typography variant="h6" sx={{ fontWeight: 600, color: "#1D1E1C" }}>
+      <Typography variant="h6" sx={{ fontWeight: 600, color: "white" }}>
         Deloitte Smart Translation Hub
       </Typography>
 
