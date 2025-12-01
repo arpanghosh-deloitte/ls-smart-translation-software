@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useAuthStore } from "../../store/authStore"; // Adjust path if needed
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
       </Typography>
 
       {/* User Info Debug */}
-      <Typography variant="body1" sx={{ mt: 2, mb: 4 }}>
+      <Typography variant="body1" sx={{ mt: 2, mb: 4, color: "text.primary" }}>
         Welcome back, <strong>{user?.name || "User"}</strong>!
         <br />
         (Email: {user?.email || "No email found"})
@@ -33,7 +33,7 @@ const Dashboard = () => {
           borderRadius: 2,
         }}
       >
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="h6" color="text.primary">
           Main Content Area
         </Typography>
         <Typography variant="body2">

@@ -25,7 +25,7 @@ let theme = createTheme({
       paper: "rgba(255, 255, 255, 0.05)", // Subtle dark paper for internal cards/modals
     },
     text: {
-      primary: colors.lightText, // Default text is white
+      primary: colors.darkText, // Default text is white
       secondary: "rgba(255, 255, 255, 0.7)",
     },
   },
