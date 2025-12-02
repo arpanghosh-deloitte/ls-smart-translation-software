@@ -27,7 +27,7 @@ const Preloader = () => {
         Deloitte Smart Translation Hub
       </Typography>
 
-      <Typography variant="body2" sx={{ mt: 1, opacity: 0.7 }}>
+      <Typography variant="body2" sx={{ mt: 1, opacity: 0.7, color: "white" }}>
         Loading...
       </Typography>
     </Box>

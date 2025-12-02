@@ -15,6 +15,7 @@ import { useAuthStore } from "../../../store/authStore";
 import AuthInfoPanel from "../AuthInfoPanel";
 import sharedStyles from "../AuthShared.module.css";
 
+
 const LoginPage = () => {
   const login = useAuthStore((s) => s.login);
   const [showPassword, setShowPassword] = useState(false);
@@ -84,6 +85,12 @@ const LoginPage = () => {
           <Link to="/signup" className={sharedStyles.link}>
             {" "}
             Create an Account
+          </Link>
+        </Typography>
+        <Typography className={sharedStyles.switchText}>
+          <Link to="#" className={sharedStyles.link}>
+          {" "}
+          Forgot Password?
           </Link>
         </Typography>
       </Box>
