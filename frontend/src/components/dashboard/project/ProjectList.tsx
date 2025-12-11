@@ -65,12 +65,23 @@ const initialProjects: ProjectData[] = [
     updatedDate: "2024-03-05",
     updatedBy: "Jane Doe",
   },
+  {
+    id: "6",
+    name: "Project 6",
+    status: "Active",
+    createdDate: "2024-03-05",
+    createdBy: "John Doe",
+    updatedDate: "2024-03-05",
+    updatedBy: "Jane Doe",
+  },
 ];
 
 const ProjectList = () => {
   const [projects, setProjects] = useState<ProjectData[]>(initialProjects);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
+    null
+  );
 
   const handleEdit = (project: ProjectData) => {
     setSelectedProject(project);
@@ -78,8 +89,8 @@ const ProjectList = () => {
   };
 
   const handleSaveProject = (updatedProject: ProjectData) => {
-    setProjects(prev => 
-      prev.map(p => p.id === updatedProject.id ? updatedProject : p)
+    setProjects((prev) =>
+      prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
     );
   };
 
@@ -161,7 +172,7 @@ const ProjectList = () => {
           </Button>
         }
       />
-      
+
       <EditProjectModal
         open={editModalOpen}
         onClose={() => setEditModalOpen(false)}
