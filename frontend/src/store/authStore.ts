@@ -33,8 +33,8 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "smart-translator-auth", // ⬅️ 3. Unique name for localStorage key
-      storage: createJSONStorage(() => localStorage), // Define storage type
+      name: "smart-translator-auth",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

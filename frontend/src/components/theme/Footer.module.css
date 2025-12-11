@@ -3,6 +3,8 @@
 .footer {
   /* CRITICAL: Ensures the footer doesn't shrink when vertical space is tight */
   flex-shrink: 0;
+  margin-top: auto;
+  z-index: 10;
   width: 100%;
 
   /* Styling to match the dark aesthetic from your dashboard screenshot */

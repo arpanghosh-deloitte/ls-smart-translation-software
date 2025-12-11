@@ -12,7 +12,7 @@
   flex-grow: 1;
   flex-shrink: 0;
 
-  overflow-y: auto;
+  /* overflow-y: auto; */
 
   background-color: #ffffff;
 
@@ -24,7 +24,11 @@
 .contentPadding {
   padding: 30px 40px;
 }
-
+@media (max-width: 600px) {
+  .contentPadding {
+    padding: 20px 16px; /* Better spacing for phones */
+  }
+}
 .fadeIn {
   animation: fadeIn 0.6s ease-out forwards;
   width: 100%;
