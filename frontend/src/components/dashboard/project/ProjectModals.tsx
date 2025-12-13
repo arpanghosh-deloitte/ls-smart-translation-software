@@ -130,7 +130,13 @@ export const EditProjectModal: React.FC<EditProjectModalProps> = ({
   project,
   onSave,
 }) => {
-  const [localData, setLocalData] = useState<ProjectData | null>(() => project);
+  const [localData, setLocalData] = useState<ProjectData | null>(null);
+
+  React.useEffect(() => {
+    if (open && project) {
+      setLocalData(project);
+    }
+  }, [open, project]);
 
   const handleSave = () => {
     if (localData) {

@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { ReusableTable } from "../../shared/Table";
-import { EditProjectModal } from "./ProjectModals";
+import { EditProjectModal, AddProjectModal, DeleteProjectModal } from "./ProjectModals";
 import type { ColumnDef } from "@tanstack/react-table";
 
 // 1. Define Data Type (Matches your screenshot columns)
@@ -79,6 +79,8 @@ const initialProjects: ProjectData[] = [
 const ProjectList = () => {
   const [projects, setProjects] = useState<ProjectData[]>(initialProjects);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
     null
   );
@@ -92,6 +94,19 @@ const ProjectList = () => {
     setProjects((prev) =>
       prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
     );
+  };
+
+  const handleAddProject = (newProject: ProjectData) => {
+    setProjects((prev) => [...prev, newProject]);
+  };
+
+  const handleDelete = (project: ProjectData) => {
+    setSelectedProject(project);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDeleteProject = (id: string) => {
+    setProjects((prev) => prev.filter((p) => p.id !== id));
   };
 
   const projectColumns: ColumnDef<ProjectData>[] = [
@@ -138,6 +153,7 @@ const ProjectList = () => {
               size="small"
               color="error"
               sx={{ p: { xs: 0.5, sm: 1 } }}
+              onClick={() => handleDelete(row.original)}
             >
               <DeleteIcon fontSize="small" />
             </IconButton>
@@ -160,7 +176,7 @@ const ProjectList = () => {
             color="primary"
             startIcon={<AddIcon />}
             size="small"
-            onClick={() => console.log("Open Add Modal")}
+            onClick={() => setAddModalOpen(true)}
             sx={{
               fontWeight: 600,
               textTransform: "none",
@@ -173,11 +189,24 @@ const ProjectList = () => {
         }
       />
 
+      <AddProjectModal
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onAdd={handleAddProject}
+      />
+      
       <EditProjectModal
         open={editModalOpen}
         onClose={() => setEditModalOpen(false)}
         project={selectedProject}
         onSave={handleSaveProject}
+      />
+      
+      <DeleteProjectModal
+        open={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        project={selectedProject}
+        onDelete={handleDeleteProject}
       />
     </Box>
   );
