@@ -1,0 +1,21 @@
+/* src/components/theme/Footer.module.css */
+
+.footer {
+  /* CRITICAL: Ensures the footer doesn't shrink when vertical space is tight */
+  flex-shrink: 0;
+  margin-top: auto;
+  z-index: 10;
+  width: 100%;
+
+  /* Styling to match the dark aesthetic from your dashboard screenshot */
+  background-color: #1d1e1c;
+  padding: 18px 40px; /* Consistent padding with the Header */
+  text-align: center;
+}
+
+.footerText {
+  /* Subtle, low-contrast white color for copyright text */
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 400;
+}

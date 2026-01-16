@@ -1,0 +1,70 @@
+/* src/components/theme/Header.module.css */
+
+.header {
+  width: 100%;
+  padding: 20px 20px;
+  display: flex;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* 2. Glass Effect & Vendor Prefixing */
+  /* background: rgba(0, 0, 0, 0.45); */
+  background: rgba(0, 0, 0);
+
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  backdrop-filter: blur(6px);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+
+  /* Reset h1 margins */
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.appName {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+
+  /* Reset h1 margins */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+  background: #86bc25; /* Deloitte Green */
+  border-radius: 50%;
+
+  /* Promotes the animation layer to the GPU */
+  will-change: transform, opacity;
+
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
